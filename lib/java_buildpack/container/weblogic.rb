@@ -81,6 +81,7 @@ module JavaBuildpack
         download_and_install_wls
         configure
         link_to(@application.root.children, deployed_app_root)
+        @droplet.additional_libraries.link_to web_inf_lib
       end
 
       def release
@@ -267,6 +268,10 @@ module JavaBuildpack
 
       def web_inf?
         (@application.root + 'WEB-INF').exist?
+      end
+
+      def web_inf_lib
+        @droplet.root + 'WEB-INF/lib'
       end
 
       def log(content)
